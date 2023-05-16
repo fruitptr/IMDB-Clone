@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+
+
+<head>
+	<!-- Basic need -->
+	<title>Open Pediatrics</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static './css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static './css/style.css' %}">
+
+</head>
+<body>
+<!--preloading-->
+<div id="preloader">
+    <img class="logo" src="{% static './images/logo1.png' %}" alt="" width="119" height="58">
+    <div id="status">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!--end of preloading-->
+<!--login form popup-->
+<div class="login-wrapper" id="login-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>Login</h3>
+        <form method="post" action="/data/setlogin">
+			{% csrf_token %}
+<!--        	<div class="row">-->
+        		 <label for="username">
+                    Username:
+                    <input type="text" name="usernamehehe" id="usernamehehe" placeholder="Username" required="required" />
+                </label>
+<!--        	</div>-->
+
+<!--            <div class="row">-->
+            	<label for="password">
+                    Password:
+                    <input type="text" name="password" id="password" placeholder="******"  required="required" />
+                </label>
+<!--            </div>-->
+            <div class="row">
+            	<div class="remember">
+					<div>
+						<input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
+					</div>
+            		<a href="#">Forget password ?</a>
+            	</div>
+            </div>
+           <div class="row">
+           	 <button type="submit">Login</button>
+           </div>
+        </form>
+    </div>
+</div>
+<!--end of login form popup-->
+<!--signup form popup-->
+<div class="login-wrapper"  id="signup-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>sign up</h3>
+        <form method="post" action="/data/createuser">
+			{% csrf_token %}
+            <div class="row">
+                 <label for="username-2">
+                    Username:
+                    <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" required="required" />
+                </label>
+            </div>
+           <div class="row">
+                 <label for="first_name">
+                    Firstname:
+                    <input type="text" name="first_name" id="first_name" placeholder="Hugh" required="required" />
+                </label>
+            </div>
+			<div class="row">
+                 <label for="last_name">
+                    Last Name:
+                    <input type="text" name="last_name" id="last_name" placeholder="Jackman" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="email-2">
+                    your email:
+                    <input type=email name="email" id="email-2" placeholder=""  required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="password-2">
+                    Password:
+                    <input type="password" name="password" id="password-2" placeholder=""  required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="repassword-2">
+                    re-type Password:
+                    <input type="password" name="password" id="repassword-2" placeholder=""  required="required" />
+                </label>
+            </div>
+			<div class="row">
+                <label for="user_type">
+                    <select name="user_type" id="user_type">
+						<option value="regular">Regular</option>
+						<option value="critic">Critic</option>
+						<option value="producer">Producer</option>
+					</select>
+                </label>
+            </div>
+           <div class="row">
+             <button type="submit">sign up</button>
+           </div>
+        </form>
+    </div>
+</div>
+<!--end of signup form popup-->
+
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="/"><img class="logo" src="{% static './images/logo1.png' %}" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li><a href="/data/movie/list">MOVIES</a></li>
+						<li><a href="/data/actor/list">ACTORS</a></li>
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						{% if not request.user.is_authenticated %}
+						<li class="loginLink"><a href="#">LOG In</a></li>
+						<li class="btn signupLink"><a href="#">sign up</a></li>
+						{% else %}
+						<li><a href="/data/user/profile">{{request.user.username}}</a></li>
+						<br>
+						<li><a href="{% url 'logoutuser' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+
+	    <!-- top search form -->
+	    <form class="top-search" action="/data/search" method="post">
+			{% csrf_token %}
+	    	<select name="type">
+				<option value="movie">MOVIES</option>
+				<option value="actor">ACTORS</option>
+			</select>
+			<input type="text" placeholder="Enter your search here" name="search_query">
+	    </form>
+	</div>
+</header>
+<!-- END | Header -->
+
+<div class="hero hero3">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- celebrity single section-->
+
+<div class="page-single movie-single cebleb-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="mv-ceb">
+					<img src="{{actor.actor_profile_picture.url}}" alt="">
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="movie-single-ct">
+					<h1 class="bd-hd">{{actor.name}}</h1>
+					<p class="ceb-single">Actor</p>
+					<div class="social-link cebsingle-socail">
+						<a href="#"><i class=""></i></a>
+						<a href="#"><i class=""></i></a>
+						<a href="#"><i class=""></i></a>
+						<a href="#"><i class=""></i></a>
+					</div>
+					<div class="movie-tabs">
+						<div class="tabs">
+							<ul class="tab-links tabs-mv">
+								<li class="active"><a href="#overviewceb">Overview</a></li>
+								<li><a href="#filmography">filmography</a></li>                        
+							</ul>
+						    <div class="tab-content">
+						        <div id="overviewceb" class="tab active">
+						            <div class="row">
+						            	<div class="col-md-8 col-sm-12 col-xs-12">
+						            		<p>{{actor.description}}</p>
+											<div class="title-hd-sm">
+												<h4>Notable Films</h4> <!-- ADD FILMS WITH MOST VIEWS OR BUDGET HERE -->
+												<a href="#" class="time">Full Filmography<i class="ion-ios-arrow-right"></i></a>
+											</div>
+											<!-- movie cast -->
+											{% for sing_movie in notable_movies %}
+											<div class="mvcast-item">											
+												<div class="cast-it">
+													<div class="cast-left cebleb-film">
+														<img src="{{sing_movie.cover_art.url}}" alt="" width="70" height="35">
+														<div>
+															<a href="/data/movie/{{sing_movie.id}}">{{sing_movie.movie_name}}</a>
+<!--															<p class="time">Logan</p>-->
+														</div>
+														
+													</div>
+													<p>...  {{sing_movie.year_released.year}}</p>
+												</div>
+											</div>
+											{% endfor %}
+						            	</div>
+						            	<div class="col-md-4 col-xs-12 col-sm-12">
+						            		<div class="sb-it">
+						            			<h6>Fullname:  </h6>
+						            			<p><a href="/data/actor/{{actor.id}}">{{actor.name}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Date of Birth: </h6>
+						            			<p><a href="#">{{actor.date_of_birth}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Country:  </h6>
+						            			<p><a href="#">{{actor.country}}</a></p>
+						            		</div>
+						            	</div>
+						            </div>
+						        </div>
+					       	 	<div id="filmography" class="tab">
+						        	<div class="row">
+						            	<div class="topbar-filter">
+											<p>Found <span>{{actor_movies | length}}</span> in total</p>
+										</div>
+										<!-- movie cast -->
+										<div class="mvcast-item">
+											{% for movie in actor_movies %}
+											<div class="cast-it">
+												<div class="cast-left cebleb-film">
+													<img src="{{movie.cover_art.url}}" alt="" width="80" height="40">
+													<div>
+														<a href="/data/movie/{{movie.id}}">{{movie.movie_name}}</a>
+														<p class="time">{{movie.producer_name.name}}</p>
+													</div>
+													
+												</div>
+												<p>... {{movie.year_released}}</p>
+											</div>
+											{% endfor %}
+										</div>
+						            </div>
+					       	 	</div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- celebrity single section-->
+
+<!-- footer section-->
+<footer class="ht-footer">
+</footer>
+<!-- end of footer section-->
+
+<script src="{% static './js/jquery.js' %}"></script>
+<script src="{% static './js/plugins.js' %}"></script>
+<script src="{% static './js/plugins2.js' %}"></script>
+<script src="{% static './js/custom.js' %}"></script>
+</body>
+
+<!-- celebritysingle12:18-->
+</html>

@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+			<div class="div" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav flex-child-menu menu-left">
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						{% if request.user.is_authenticated %}
+						<br>
+						<li><a class="redbtn" href="{% url 'logoutuser' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<head>
+	<!-- Basic need -->
+	<title>Open Pediatrics</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static './css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static './css/style.css' %}">
+
+</head>
+<body>
+<div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>Welcome Producer</h1>
+					<ul class="breadcumb">
+						<li class="active">Please enter a movie's details</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<form class="form-style-1 movie-form" action="/data/producer/createmovie" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-12 form-it">
+					<label>Movie name</label>
+					<input type="text" placeholder="Enter keywords" name="enter_movie_name">
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Director name</label>
+					<input type="text" placeholder="Enter keywords" name="enter_director">
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Genre</label>
+					<div class="group-ip">
+						<select
+								name="search_genre" multiple="" class="ui fluid dropdown">
+							<option value="">Enter to filter genres</option>
+							<option value="action">Action</option>
+							<option value="adventure">Adventure</option>
+							<option value="comedy">Comedy</option>
+							<option value="romance">Romance</option>
+							<option value="horror">Horror</option>
+							<option value="sci-fi">Sci-fi</option>
+							<option value="animation">Animation</option>
+							<option value="crime">Crime</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Date Released</label>
+					<input type="date" placeholder="Enter keywords" name="enter_year_released">
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Runtime</label>
+					<input type="number" placeholder="Minutes" name="enter_runtime">
+<!--					transform this string to duration-->
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Budget</label>
+					<input type="text" placeholder="Enter keywords" name="enter_budget">
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Description</label>
+					<input type="text" placeholder="Enter keywords" name="enter_description">
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Cast</label>
+					<input type="text" placeholder="Format: {1,2,3,5}" name="enter_cast">
+					<br>
+					<div style="text-align: center;"><a href="/user/producer/list" class="redbtn">Search Actors</a></div>
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Cover Art</label>
+					<input type="file" placeholder="Enter keywords" name="enter_cover_art">
+				</div>
+				<div class="col-md-12 form-it">
+					<label>Movie Trailer URL</label>
+					<input type="url" placeholder="Enter keywords" name="enter_movie_trailer_url">
+				</div>
+				<div class="col-md-12 ">
+					<input class="submit" type="submit" value="submit">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- footer section-->
+<!-- end of footer section-->
+
+<script src="{% static './js/jquery.js' %}"></script>
+<script src="{% static './js/plugins.js' %}"></script>
+<script src="{% static './js/plugins2.js' %}"></script>
+<script src="{% static './js/custom.js' %}"></script>
+</body>
+
+</html>

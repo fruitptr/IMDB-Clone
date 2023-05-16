@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+
+
+<head>
+	<!-- Basic need -->
+	<title>Open Pediatrics</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static './css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static './css/style.css' %}">
+
+</head>
+<body>
+<!--preloading-->
+<div id="preloader">
+    <img class="logo" src="{% static './images/logo1.png' %}" alt="" width="119" height="58">
+    <div id="status">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!--end of preloading-->
+<!--login form popup-->
+<div class="login-wrapper" id="login-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>Login</h3>
+        <form method="post" action="/data/setlogin">
+			{% csrf_token %}
+<!--        	<div class="row">-->
+        		 <label for="username">
+                    Username:
+                    <input type="text" name="usernamehehe" id="usernamehehe" placeholder="Username" required="required" />
+                </label>
+<!--        	</div>-->
+
+<!--            <div class="row">-->
+            	<label for="password">
+                    Password:
+                    <input type="text" name="password" id="password" placeholder="******"  required="required" />
+                </label>
+<!--            </div>-->
+            <div class="row">
+            	<div class="remember">
+					<div>
+						<input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
+					</div>
+            		<a href="#">Forget password ?</a>
+            	</div>
+            </div>
+           <div class="row">
+           	 <button type="submit">Login</button>
+           </div>
+        </form>
+    </div>
+</div>
+<!--end of login form popup-->
+<!--signup form popup-->
+<div class="login-wrapper"  id="signup-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>sign up</h3>
+        <form method="post" action="/data/createuser">
+			{% csrf_token %}
+            <div class="row">
+                 <label for="username-2">
+                    Username:
+                    <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" required="required" />
+                </label>
+            </div>
+           <div class="row">
+                 <label for="first_name">
+                    Firstname:
+                    <input type="text" name="first_name" id="first_name" placeholder="Hugh" required="required" />
+                </label>
+            </div>
+			<div class="row">
+                 <label for="last_name">
+                    Last Name:
+                    <input type="text" name="last_name" id="last_name" placeholder="Jackman" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="email-2">
+                    your email:
+                    <input type=email name="email" id="email-2" placeholder=""  required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="password-2">
+                    Password:
+                    <input type="password" name="password" id="password-2" placeholder=""  required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="repassword-2">
+                    re-type Password:
+                    <input type="password" name="password" id="repassword-2" placeholder=""  required="required" />
+                </label>
+            </div>
+			<div class="row">
+                <label for="user_type">
+                    <select name="user_type" id="user_type">
+						<option value="regular">Regular</option>
+						<option value="critic">Critic</option>
+						<option value="producer">Producer</option>
+					</select>
+                </label>
+            </div>
+           <div class="row">
+             <button type="submit">sign up</button>
+           </div>
+        </form>
+    </div>
+</div>
+<!--end of signup form popup-->
+
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="/"><img class="logo" src="{% static './images/logo1.png' %}" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li><a href="/data/movie/list">MOVIES</a></li>
+						<li><a href="/data/actor/list">ACTORS</a></li>
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						{% if not request.user.is_authenticated %}
+						<li class="loginLink"><a href="#">LOG In</a></li>
+						<li class="btn signupLink"><a href="#">sign up</a></li>
+						{% else %}
+						<li><a href="/data/user/profile">{{request.user.username}}</a></li>
+						<br>
+						<li><a href="{% url 'logoutuser' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+
+	    <!-- top search form -->
+	    <form class="top-search" action="/data/search" method="post">
+			{% csrf_token %}
+	    	<select name="type">
+				<option value="movie">MOVIES</option>
+				<option value="actor">ACTORS</option>
+			</select>
+			<input type="text" placeholder="Enter your search here" name="search_query">
+	    </form>
+	</div>
+</header>
+<!-- END | Header -->
+
+<div class="hero mv-single-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h1> movie listing - list</h1>
+				<ul class="breadcumb">
+					<li class="active"><a href="#">Home</a></li>
+					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+				</ul> -->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single movie-single movie_single">
+	<div class="container">
+		<div class="row ipad-width2">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="movie-img sticky-sb">
+					<img src="{{movie.cover_art.url}}" alt="">
+					<div class="movie-btn">	
+						<div class="btn-transform transform-vertical red">
+							<div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
+							<div><a href="{{movie.movie_trailer_url}}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="movie-single-ct main-content">
+					<h1 class="bd-hd">{{movie.movie_name}} <span>{{movie.year_released.year}}</span></h1>
+					<div class="social-btn">
+						{% if not fav %}
+						<a href="/data/movie/{{movie.id}}" onclick="addToFavourite('{{movie.id}}')" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						{% else %}
+						<a href="/data/movie/{{movie.id}}" onclick="removeFromFavourite('{{movie.id}}')" class="parent-btn"><i class="ion-heart"></i> In Favourites List</a>
+						{% endif %}
+						<div class="hover-bnt">
+							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
+							<div class="hvr-item">
+								<a href="#" class="hvr-grow"><i class="ion-paperclip"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="movie-rate">
+						<div class="rate">
+							<i class="ion-android-star"></i>
+							<p><span>{{movie.user_avg_rating}}</span> /5<br>
+								<span class="rv">User Average Reviews</span>
+							</p>
+						</div>
+						<div class="rate-star"></div>
+						<div class="rate">
+							<i class="ion-android-star"></i>
+							<p><span>{{movie.critic_avg_rating}}</span> /5<br>
+								<span class="rv">Critic Average Reviews</span>
+							</p>
+						</div>
+					</div>
+					<div class="movie-tabs">
+						<div class="tabs">
+							<ul class="tab-links tabs-mv">
+								<li class="active"><a href="#overview">Overview</a></li>
+								<li><a href="#reviews"> Reviews</a></li>
+								<li><a href="#cast">  Cast & Crew </a></li>
+							</ul>
+						    <div class="tab-content">
+						        <div id="overview" class="tab active">
+						            <div class="row">
+						            	<div class="col-md-8 col-sm-12 col-xs-12">
+						            		<p>{{movie.description}}</p>
+											<div class="title-hd-sm">
+												<h4>cast</h4>
+												<a href="#" class="time">Full Cast & Crew  <i class="ion-ios-arrow-right"></i></a>
+											</div>
+											<!-- movie cast -->
+											<div class="mvcast-item">
+												{% for cast_member in cast_object %}
+												<div class="cast-it">
+													<div class="cast-left">
+														<img src="{{cast_member.actor_profile_picture.url}}" alt="" width="60" height="25">
+														<a href="/data/actor/{{cast_member.id}}">{{cast_member.name}}</a>
+													</div>
+												</div>
+												{% endfor %}
+											</div>
+											<div class="title-hd-sm">
+												<h4>User reviews</h4>
+												<a href="#" class="time">See All Reviews <i class="ion-ios-arrow-right"></i></a>
+											</div>
+											<!-- movie user review -->
+											<div class="mv-user-review-item">
+												<h3>Username: {{movie_comments.last.user_id}} ({{request.user.user_type}})</h3>
+												<div class="no-star"><h4>Rating: <span>{{movie_comments.last.rating}}/5</span></h4>
+												</div>
+												<p></p>
+												<p>{{movie_comments.last.comment_text}}</p>
+											</div>
+						            	</div>
+						            	<div class="col-md-4 col-xs-12 col-sm-12">
+						            		<div class="sb-it">
+						            			<h6>Director: </h6>
+						            			<p><a href="#">{{movie.director}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Stars: </h6>
+						            			<p>{% for cast_member in cast_object %}<a href="/data/actor/{{cast_member.id}}">{{cast_member.name}},</a>{% endfor %}</p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Genre:</h6>
+						            			<p><a href="#">{{movie.genre|title}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Release Date:</h6>
+						            			<p>{{movie.year_released}}</p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Run Time:</h6>
+						            			<p>{{movie.runtime}}</p>
+						            		</div>
+											<div class="sb-it">
+						            			<h6>Budget:</h6>
+						            			<p>${{movie.budget}}</p>
+						            		</div>
+						            	</div>
+						            </div>
+						        </div>
+						        <div id="reviews" class="tab review">
+									{% if request.user.is_authenticated and request.user.user_type != 'producer' and not review_done %}
+									   <form class="form-style-1 movie-form" action="/data/movie/{{movie.id}}/review" method="post">
+											{% csrf_token %}
+											<div class="row">
+												<div class="col-md-12 form-it">
+												<h3>Write Review</h3>
+													</div>
+												<div class="col-md-12 form-it">
+													<label>Rating</label>
+													<div class="group-ip">
+														<select name="rating" class="ui fluid dropdown">
+															<option value="">Select a rating</option>
+															<option value="1">1 Star</option>
+															<option value="2">2 Star</option>
+															<option value="3">3 Star</option>
+															<option value="4">4 Star</option>
+															<option value="5">5 Star</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-12 form-it">
+													<label>Comment</label>
+													<input type="text" placeholder="Enter comment" name="enter_comment_text">
+												</div>
+												<div class="col-md-12 ">
+													<input class="submit" type="submit" value="submit"></div>
+											</div>
+											</h3>
+										</form>
+									   {% endif %}
+						           <div class="row">
+						            	<div class="rv-hd">
+						            		<div class="div">
+							            		<h3>Reviews of</h3>
+						       	 				<h2>{{movie.movie_name}}</h2>
+							            	</div>
+						            	</div>
+									   {% for comment in movie_comments %}
+										<div class="mv-user-review-item">
+												<h3>Username: {{comment.user_id}} ({{request.user.user_type}})</h3>
+												<div class="no-star"><h4>Rating: <span>{{comment.rating}}/5</span></h4>
+												</div>
+												<p></p>
+												<p>{{comment.comment_text}}</p>
+											</div>
+									   {% endfor %}
+						            </div>
+						        </div>
+						        <div id="cast" class="tab">
+						        	<div class="row">
+						            	<h3>Cast & Crew of</h3>
+					       	 			<h2>{{movie.movie_name}}</h2>
+										<!-- //== -->
+					       	 			<div class="title-hd-sm">
+											<h4>Director</h4>
+										</div>
+										<div class="mvcast-item">											
+											<div class="cast-it">
+												<div class="cast-left">
+													<h4>-</h4>
+													<a href="#">{{movie.director}}</a>
+												</div>
+											</div>
+										</div>
+										<div class="title-hd-sm">
+											<h4>Cast</h4>
+										</div>
+										<div class="mvcast-item">
+												{% for cast_member in cast_object %}
+												<div class="cast-it">
+													<div class="cast-left">
+														<img src="{{cast_member.actor_profile_picture.url}}" alt="" width="60" height="25">
+														<a href="/data/actor/{{cast_member.id}}">{{cast_member.name}}</a>
+													</div>
+												</div>
+												{% endfor %}
+											</div>
+										<!-- //== -->
+										<div class="title-hd-sm">
+											<h4>Produced by</h4>
+										</div>
+										<div class="mvcast-item">											
+											<div class="cast-it">
+												<div class="cast-left">
+													<h4>-</h4>
+													<a href="#">{{movie.producer_name.name}}</a>
+												</div>
+											</div>
+
+										</div>
+						            </div>
+					       	 	</div>
+
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer section-->
+<!-- end of footer section-->
+
+<script src="{% static './js/jquery.js' %}"></script>
+<script src="{% static './js/plugins.js' %}"></script>
+<script src="{% static './js/plugins2.js' %}"></script>
+<script src="{% static './js/custom.js' %}"></script>
+<script>
+	function increaseCount(){
+		$.ajax({
+		url: '/data/update/view_count',
+		method: 'POST',
+		data: JSON.stringify({'movie_id': "{{movie.id}}"}),
+		processData: false
+	});
+	}
+
+	window.onload = increaseCount;
+
+	function addToFavourite(movie_id){
+		$.ajax({
+		url: '/data/update/favourites',
+		method: 'POST',
+		data: JSON.stringify({'movie_id': movie_id}),
+		processData: false
+	});
+	}
+
+	function removeFromFavourite(movie_id) {
+		$.ajax({
+			url: '/data/remove/favourites',
+			method: 'POST',
+			data: JSON.stringify({'movie_id': movie_id}),
+			processData: false
+		});
+	}
+
+</script>
+</body>
+
+<!-- moviesingle11:03-->
+</html>
